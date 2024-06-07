@@ -1,4 +1,3 @@
-import './bootstrap.js';
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -11,6 +10,7 @@ import './styles/app.scss';
 import { Tooltip, Toast, Popover } from 'bootstrap';
 // start the Stimulus application
 import './bootstrap';
+
 $(document).ready(function() {
 $('[data-toggle="popover"]').popover();
 });

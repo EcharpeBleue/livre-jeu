@@ -3,25 +3,16 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-<ul>
-<li><a href="{{path('app_avatar_index')}}"> Gérer les avatars</a></li>
-<li><a href="{{path('app_personnage_index')}}"> Gérer les personnages</a></li>
-<li><a href="{{path('app_aventure_index')}}"> Gérer les aventures</a></li>
-<li><a href="{{path('app_etape_index')}}"> Gérer les etapes</a></li>
-<li><a href="{{path('app_alternative_index')}}"> Gérer les alternatives</a></li>
-<li><a href="{{path('app_partie_index')}}"> Gérer les parties</a></li>
-</ul>
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="row">
+    <div class="col d-flex align-items-center justify-content-center">
+    <a class="link-secondary btn btn-primary btn-lg w-75 m-1 pl-5 pr-5 fs-1" href="{{path('app_admin')}}">Gérer</a>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/jpa/livre-jeu/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>/home/jpa/livre-jeu/templates/home/index.html.twig</code></li>
-    </ul>
-</div>
+  <div class="row">
+    <div class="col d-flex align-items-center justify-content-center">
+    <a class="link-secondary btn btn-primary btn-lg w-75 m-1 pl-5 pr-5 fs-1" href="{{path('app_jouer')}}">Jouer</a>
+    </div>
+  </div> 
+  </div>
 {% endblock %}
+

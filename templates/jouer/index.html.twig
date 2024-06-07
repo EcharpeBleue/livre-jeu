@@ -5,7 +5,7 @@
 {% block body %}
 <div class="col">
 {% for personnage in personnages %}
-<div class="card row" style="display: inline-block;margin-right: 10px;"><a href="#">
+<div class="card row" style="display: inline-block;margin-right: 10px;"><a href="{{path('app_choix_aventure', {'idPersonnage': personnage.id})}}">
 <img src="{{asset('images/avatars/'~personnage.avatar.getNomFichier())}}">
 <span style="background-color: grey; color: white">{{ personnage.prenom }}</span> </a>
 </div>

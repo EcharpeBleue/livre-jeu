@@ -3,9 +3,9 @@
 {% block title %}New Personnage{% endblock %}
 
 {% block body %}
-    <h1>Create new Personnage</h1>
+    <h1 class="card">Create new Personnage</h1>
 
     {{ include('personnage/_form.html.twig') }}
 
-    <a href="{{ path('app_personnage_index') }}">back to list</a>
+    <a class="card" href="{{ path('app_personnage_index') }}">back to list</a>
 {% endblock %}

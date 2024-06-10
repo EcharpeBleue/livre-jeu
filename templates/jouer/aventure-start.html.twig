@@ -3,6 +3,12 @@
 {% block title %}Le début de l'aventure {% endblock %}
 
 {% block body %}
-<div>Le personnage {{personnage.prenom}} commence l'aventure {{aventure.titre}} !</div>
-<a href="{{path('app_play_aventure', {'idPartie': partie.id, 'idEtape': partie.etape.id})}}" class="btn btn-primary"> Lancer </a>
+<div class="container">
+    <div class="card bg-dark text-white">
+        <div class="card-body">
+            <p class="card-text">Le personnage {{ personnage.prenom }} commence l'aventure {{ aventure.titre }} !</p>
+            <a href="{{ path('app_play_aventure', {'idPartie': partie.id, 'idEtape': partie.etape.id}) }}" class="btn btn-primary">Lancer</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

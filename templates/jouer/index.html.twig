@@ -3,15 +3,32 @@
 {% block title %}Hello JouerController!{% endblock %}
 
 {% block body %}
-<div class="col">
+<div class="container">
+    <div class="row">
 {% for personnage in personnages %}
-<div class="card row" style="display: inline-block;margin-right: 10px;"><a href="{{path('app_choix_aventure', {'idPersonnage': personnage.id})}}">
-<img src="{{asset('images/avatars/'~personnage.avatar.getNomFichier())}}">
-<span style="background-color: grey; color: white">{{ personnage.prenom }}</span> </a>
-</div>
+    <div class="col-md-3 mb-3">
+        <div class="card">
+        {% set values = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']%}
+        <div style="background: radial-gradient(circle, #{{random(values)~ random(values)~ random(values)~ random(values)~ random(values)~ random(values)}}, black);">
+            <a href="{{ path('app_choix_aventure', {'idPersonnage': personnage.id}) }}">
+                <img src="{{ asset('images/avatars/' ~ personnage.avatar.getNomFichier()) }}" class="card-img-top" alt="Avatar">
+                <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ personnage.prenom }}</h5>
+                </div>
+                </div>
+            </a>
+        </div>
+        </div>
+    </div>
 {% else %}
-    Aucun personnage trouvé
+    <div class="card" class="col">
+        Aucun personnage trouvé
+    </div>
 {% endfor %}
-<div class="row"><a href="/jouer/new">Créer</a></div>
+    </div>
+    <div class="row mt-3">
+        <a href="/jouer/new" class="btn btn-primary">Créer</a>
+    </div>
 </div>
 {% endblock %}

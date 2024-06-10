@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Util\Utils;
 use App\Entity\Etape;
 use App\Entity\Personnage;
 use App\Entity\Partie;
@@ -25,7 +26,7 @@ class JouerController extends AbstractController
     {
         $personnages = $personnageRepository->findAll();
         return $this->render('jouer/index.html.twig', [
-            'personnages' => $personnages,
+            'personnages' => $personnages
         ]);
     }
 

@@ -3,19 +3,28 @@
 {% block title %} Liste des aventures {% endblock %}
 
 {% block body %}
-<div class="col">
-<div class="card row character" style="display: inline-block;margin-right: 10px;"><a href="#">
-<img src="{{asset('images/avatars/'~personnage.avatar.getNomFichier())}}">
-<span style="background-color: grey; color: white">{{ personnage.prenom }}</span> </a>
-{% for aventure in aventures %}
-<div class="card row adventures-container" style="display: inline-block;margin-right: 10px;float: right; width: 30%;margin-right: 20px;"><a href="#">
-<h2 style="background-color:grey; color: white">{{ aventure.titre }} </h2>
-<p style="background-color:grey; color: white">{{ aventure.description }} </p>
-</a>
-<a href="{{ path('app_start_aventure', {'idPersonnage': personnage.id , 'idAventure': aventure.id }) }}"> Jouer </a>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <img src="{{ asset('images/avatars/' ~ personnage.avatar.getNomFichier()) }}" class="card-img-top" alt="Avatar">
+            <div class="card-body">
+                <h5 class="card-title">{{ personnage.prenom }}</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        {% for aventure in aventures %}
+<div class="card mb-3 bg-dark">
+    <div class="card-body">
+        <h5 class="card-title text-white">{{ aventure.titre }}</h5>
+        <p class="card-text text-white">{{ aventure.description }}</p>
+        <a href="{{ path('app_start_aventure', {'idPersonnage': personnage.id, 'idAventure': aventure.id }) }}" class="btn btn-primary">Jouer</a>
+    </div>
 </div>
-{% else %}
-Aucune aventure
-{% endfor %}
+        {% else %}
+        <p>Aucune aventure</p>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

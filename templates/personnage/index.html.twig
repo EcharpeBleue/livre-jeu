@@ -3,7 +3,7 @@
 {% block title %}Personnage index{% endblock %}
 
 {% block body %}
-    <h1>Personnage index</h1>
+    <h1 class="card">Personnage index</h1>
 
     <table class="table">
         <thead>
@@ -31,5 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_personnage_new') }}">Create new</a>
+    <a class="card" href="{{ path('app_personnage_new') }}">Create new</a>
 {% endblock %}

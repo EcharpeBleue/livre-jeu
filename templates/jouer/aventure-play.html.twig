@@ -4,12 +4,12 @@
 
 {% block body %}
 
-<div>{{partie.etape.texteAmbiance}}</div>
-<div>
+<div class="bg-white" style="--bs-bg-opacity: .75;">{{partie.etape.texteAmbiance}}</div>
+<div class="row bg-white" style="--bs-bg-opacity: .75;">
 {% for alternative in partie.etape.alternatives %}
-<div>
-<div> {{alternative.texteAmbiance}}</div>
-<a href="{{ path('app_play_aventure', {'idPartie': partie.id , 'idEtape': alternative.etapeSuivante.id}) }}"> Cliquez ici </a>">
+<div class="col">
+<div style="display: inline-block; vertical-align: top;"> {{alternative.texteAmbiance}} </div>
+<a class="btn btn-link" style="vertical-align: top;" href="{{ path('app_play_aventure', {'idPartie': partie.id , 'idEtape': alternative.etapeSuivante.id}) }}"> Cliquez ici </a>
 </div>
 {% endfor %}
 </div>

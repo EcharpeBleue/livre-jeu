@@ -4,18 +4,18 @@
 
 {% block body %}
 <div class="col">
-<div class="card row" style="display: inline-block;margin-right: 10px;"><a href="#">
+<div class="card row character" style="display: inline-block;margin-right: 10px;"><a href="#">
 <img src="{{asset('images/avatars/'~personnage.avatar.getNomFichier())}}">
 <span style="background-color: grey; color: white">{{ personnage.prenom }}</span> </a>
-</div>
-
 {% for aventure in aventures %}
-<div class="col">
-<div class="card row" style="display: inline-block;margin-right: 10px;"><a href="#">
-<a href="#"> Jouer </a>
+<div class="card row adventures-container" style="display: inline-block;margin-right: 10px;float: right; width: 30%;margin-right: 20px;"><a href="#">
+<h2 style="background-color:grey; color: white">{{ aventure.titre }} </h2>
+<p style="background-color:grey; color: white">{{ aventure.description }} </p>
+</a>
+<a href="{{ path('app_start_aventure', {'idPersonnage': personnage.id , 'idAventure': aventure.id }) }}"> Jouer </a>
 </div>
 {% else %}
 Aucune aventure
 {% endfor %}
-
+</div>
 {% endblock %}

@@ -1,10 +1,16 @@
 <?php
 
 namespace App\Controller;
+
+use App\Entity\Etape;
 use App\Entity\Personnage;
-use App\Repository\PersonnageRepository;
+use App\Entity\Partie;
 use App\Form\PersonnageType;
+use App\Repository\AlternativeRepository;
+use App\Repository\PersonnageRepository;
 use App\Repository\AventureRepository;
+use App\Repository\EtapeRepository;
+use App\Repository\PartieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,5 +49,41 @@ class JouerController extends AbstractController
         $personnage = $personnageRepository->find($idPersonnage);
         $aventures = $aventureRepository->findAll();
         return $this->render('jouer/aventures.html.twig', ['personnage' => $personnage , 'aventures' => $aventures]);
+    }
+
+    #[Route('jouer/aventure/{idPersonnage}/{idAventure}', name: 'app_start_aventure', methods: ['GET'])]
+    public function demarrerAventure(PersonnageRepository $personnageRepository, AventureRepository $aventureRepository, PartieRepository $partieRepository, EntityManagerInterface $entityManager, $idPersonnage, $idAventure, ):Response
+    {
+        $personnage = $personnageRepository->find($idPersonnage);
+        $aventure = $aventureRepository->find($idAventure);
+        $partie = $partieRepository->findOneBy(array('aventurier'=>$personnage,'aventure'=>$aventure));
+        $isNewPartie = !isset($partie);
+        if ($isNewPartie)
+        {
+            $isNewPartie = true;
+            $partie = new Partie();
+            $partie->setAventurier($personnage);
+            $partie->setAventure($aventure);
+            $partie->setEtape($aventure->getPremiereEtape());
+            $partie->setDatePartie(new \DateTime('now'));
+            $entityManager->persist($partie);
+            $entityManager->flush();
+        }
+        return $this->render('jouer/aventure-start.html.twig', ['personnage'=>$personnage,'aventure'=>$aventure, 'partie'=>$partie]);
+    }
+
+    #[Route('jouer/etape/{idPartie}/{idEtape}', name: 'app_play_aventure', methods: ['GET'])]
+    public function jouerAventure(PartieRepository $partieRepository, EtapeRepository $etapeRepository,AlternativeRepository $alternativeRepository, $idPartie, $idEtape,EntityManagerInterface $entityManager)
+    {
+        $partie = $partieRepository->find($idPartie);
+        $etape = $etapeRepository->find($idEtape);   
+        $partie->setEtape($etape); 
+        $entityManager->persist($partie);
+        $entityManager->flush();
+        if ($etape->getFinAventure() != null) {
+            return $this->render('jouer/aventure-end.html.twig', ['partie' => $partie]);
+        } else {
+            return $this->render('jouer/aventure-play.html.twig', ['partie' => $partie]);
+        }
     }
 }

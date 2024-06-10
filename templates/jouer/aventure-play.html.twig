@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} L'Aventure continue... {% endblock %}
+
+{% block body %}
+
+<div>{{partie.etape.texteAmbiance}}</div>
+<div>
+{% for alternative in partie.etape.alternatives %}
+<div>
+<div> {{alternative.texteAmbiance}}</div>
+<a href="{{ path('app_play_aventure', {'idPartie': partie.id , 'idEtape': alternative.etapeSuivante.id}) }}"> Cliquez ici </a>">
+</div>
+{% endfor %}
+</div>
+{% endblock %}
+

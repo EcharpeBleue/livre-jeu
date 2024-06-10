@@ -18,15 +18,15 @@ class EtapeType extends AbstractType
             ->add('libelle')
             ->add('aventureDebutee', EntityType::class, [
                 'class' => aventure::class,
-                'choice_label' => 'id',
+                'choice_label' => 'titre','required'=>false, 
             ])
             ->add('aventure', EntityType::class, [
                 'class' => aventure::class,
-                'choice_label' => 'id',
+                'choice_label' => 'titre',
             ])
             ->add('finAventure', EntityType::class, [
                 'class' => aventure::class,
-                'choice_label' => 'id',
+                'choice_label' => 'titre','required'=>false,
             ])
         ;
     }

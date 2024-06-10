@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le début de l'aventure {% endblock %}
+
+{% block body %}
+<div>Le personnage {{personnage.prenom}} commence l'aventure {{aventure.titre}} !</div>
+<a href="{{path('app_play_aventure', {'idPartie': partie.id, 'idEtape': partie.etape.id})}}" class="btn btn-primary"> Lancer </a>
+{% endblock %}

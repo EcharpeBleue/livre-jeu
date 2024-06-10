@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{{partie.etape.texteAmbiance}}
+<div>Ceci est la (une ?) bonne fin de l'aventure ! Bien joué !</div>
+<a href="{{ path('app_jouer', {'idPartie': partie.id , 'idEtape': partie.etape.id}) }}"> Jouer </a>">
+{% endblock %}

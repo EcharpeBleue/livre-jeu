@@ -4,10 +4,12 @@
 
 {% block body %}
     <h1 class="card">Edit Aventure</h1>
-
+    <div class="card">
     {{ include('aventure/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
 
     <a class="card" href="{{ path('app_aventure_index') }}">back to list</a>
-
+    <div class="card">
     {{ include('aventure/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

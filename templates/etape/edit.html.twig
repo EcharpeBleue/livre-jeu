@@ -3,11 +3,13 @@
 {% block title %}Edit Etape{% endblock %}
 
 {% block body %}
-    <h1>Edit Etape</h1>
+    <h1 class="card">Edit Etape</h1>
 
+    <div class="card">
     {{ include('etape/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_etape_index') }}">back to list</a>
-
+    </div>
+    <a class="card" href="{{ path('app_etape_index') }}">back to list</a>
+    <div class="card">
     {{ include('etape/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

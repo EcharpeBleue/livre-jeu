@@ -17,6 +17,7 @@ class AvatarController extends AbstractController
     #[Route('/', name: 'app_avatar_index', methods: ['GET'])]
     public function index(AvatarRepository $avatarRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         return $this->render('avatar/index.html.twig', [
             'avatars' => $avatarRepository->findAll(),
         ]);
@@ -25,6 +26,7 @@ class AvatarController extends AbstractController
     #[Route('/new', name: 'app_avatar_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $avatar = new Avatar();
         $form = $this->createForm(AvatarType::class, $avatar);
         $form->handleRequest($request);
@@ -45,6 +47,7 @@ class AvatarController extends AbstractController
     #[Route('/{id}', name: 'app_avatar_show', methods: ['GET'])]
     public function show(Avatar $avatar): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         return $this->render('avatar/show.html.twig', [
             'avatar' => $avatar,
         ]);
@@ -53,6 +56,7 @@ class AvatarController extends AbstractController
     #[Route('/{id}/edit', name: 'app_avatar_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Avatar $avatar, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $form = $this->createForm(AvatarType::class, $avatar);
         $form->handleRequest($request);
 
@@ -71,6 +75,7 @@ class AvatarController extends AbstractController
     #[Route('/{id}', name: 'app_avatar_delete', methods: ['POST'])]
     public function delete(Request $request, Avatar $avatar, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         if ($this->isCsrfTokenValid('delete'.$avatar->getId(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($avatar);
             $entityManager->flush();

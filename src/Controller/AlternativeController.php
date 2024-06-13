@@ -17,6 +17,7 @@ class AlternativeController extends AbstractController
     #[Route('/', name: 'app_alternative_index', methods: ['GET'])]
     public function index(AlternativeRepository $alternativeRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         return $this->render('alternative/index.html.twig', [
             'alternatives' => $alternativeRepository->findAll(),
         ]);
@@ -25,6 +26,7 @@ class AlternativeController extends AbstractController
     #[Route('/new', name: 'app_alternative_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $alternative = new Alternative();
         $form = $this->createForm(AlternativeType::class, $alternative);
         $form->handleRequest($request);
@@ -45,6 +47,7 @@ class AlternativeController extends AbstractController
     #[Route('/{id}', name: 'app_alternative_show', methods: ['GET'])]
     public function show(Alternative $alternative): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         return $this->render('alternative/show.html.twig', [
             'alternative' => $alternative,
         ]);
@@ -53,6 +56,7 @@ class AlternativeController extends AbstractController
     #[Route('/{id}/edit', name: 'app_alternative_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Alternative $alternative, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $form = $this->createForm(AlternativeType::class, $alternative);
         $form->handleRequest($request);
 
@@ -71,6 +75,7 @@ class AlternativeController extends AbstractController
     #[Route('/{id}', name: 'app_alternative_delete', methods: ['POST'])]
     public function delete(Request $request, Alternative $alternative, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         if ($this->isCsrfTokenValid('delete'.$alternative->getId(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($alternative);
             $entityManager->flush();

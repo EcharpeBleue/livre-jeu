@@ -17,6 +17,7 @@ class AventureController extends AbstractController
     #[Route('/', name: 'app_aventure_index', methods: ['GET'])]
     public function index(AventureRepository $aventureRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         return $this->render('aventure/index.html.twig', [
             'aventures' => $aventureRepository->findAll(),
         ]);
@@ -25,6 +26,7 @@ class AventureController extends AbstractController
     #[Route('/new', name: 'app_aventure_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $aventure = new Aventure();
         $form = $this->createForm(AventureType::class, $aventure);
         $form->handleRequest($request);
@@ -45,6 +47,7 @@ class AventureController extends AbstractController
     #[Route('/{id}', name: 'app_aventure_show', methods: ['GET'])]
     public function show(Aventure $aventure): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         return $this->render('aventure/show.html.twig', [
             'aventure' => $aventure,
         ]);
@@ -53,6 +56,7 @@ class AventureController extends AbstractController
     #[Route('/{id}/edit', name: 'app_aventure_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Aventure $aventure, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $form = $this->createForm(AventureType::class, $aventure);
         $form->handleRequest($request);
 
@@ -71,6 +75,7 @@ class AventureController extends AbstractController
     #[Route('/{id}', name: 'app_aventure_delete', methods: ['POST'])]
     public function delete(Request $request, Aventure $aventure, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         if ($this->isCsrfTokenValid('delete'.$aventure->getId(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($aventure);
             $entityManager->flush();

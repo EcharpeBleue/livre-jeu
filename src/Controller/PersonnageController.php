@@ -17,6 +17,7 @@ class PersonnageController extends AbstractController
     #[Route('/', name: 'app_personnage_index', methods: ['GET'])]
     public function index(PersonnageRepository $personnageRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         return $this->render('personnage/index.html.twig', [
             'personnages' => $personnageRepository->findAll(),
         ]);
@@ -25,6 +26,7 @@ class PersonnageController extends AbstractController
     #[Route('/new', name: 'app_personnage_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $personnage = new Personnage();
         $form = $this->createForm(PersonnageType::class, $personnage);
         $form->handleRequest($request);
@@ -45,6 +47,7 @@ class PersonnageController extends AbstractController
     #[Route('/{id}', name: 'app_personnage_show', methods: ['GET'])]
     public function show(Personnage $personnage): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         return $this->render('personnage/show.html.twig', [
             'personnage' => $personnage,
         ]);
@@ -53,6 +56,7 @@ class PersonnageController extends AbstractController
     #[Route('/{id}/edit', name: 'app_personnage_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Personnage $personnage, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $form = $this->createForm(PersonnageType::class, $personnage);
         $form->handleRequest($request);
 
@@ -71,6 +75,7 @@ class PersonnageController extends AbstractController
     #[Route('/{id}', name: 'app_personnage_delete', methods: ['POST'])]
     public function delete(Request $request, Personnage $personnage, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         if ($this->isCsrfTokenValid('delete'.$personnage->getId(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($personnage);
             $entityManager->flush();

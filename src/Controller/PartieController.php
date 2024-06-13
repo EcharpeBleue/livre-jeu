@@ -17,6 +17,7 @@ class PartieController extends AbstractController
     #[Route('/', name: 'app_partie_index', methods: ['GET'])]
     public function index(PartieRepository $partieRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         return $this->render('partie/index.html.twig', [
             'parties' => $partieRepository->findAll(),
         ]);
@@ -25,6 +26,7 @@ class PartieController extends AbstractController
     #[Route('/new', name: 'app_partie_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $partie = new Partie();
         $form = $this->createForm(PartieType::class, $partie);
         $form->handleRequest($request);
@@ -45,6 +47,7 @@ class PartieController extends AbstractController
     #[Route('/{id}', name: 'app_partie_show', methods: ['GET'])]
     public function show(Partie $partie): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         return $this->render('partie/show.html.twig', [
             'partie' => $partie,
         ]);
@@ -53,6 +56,7 @@ class PartieController extends AbstractController
     #[Route('/{id}/edit', name: 'app_partie_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Partie $partie, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $form = $this->createForm(PartieType::class, $partie);
         $form->handleRequest($request);
 
@@ -71,6 +75,7 @@ class PartieController extends AbstractController
     #[Route('/{id}', name: 'app_partie_delete', methods: ['POST'])]
     public function delete(Request $request, Partie $partie, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         if ($this->isCsrfTokenValid('delete'.$partie->getId(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($partie);
             $entityManager->flush();

@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 class JouerController extends AbstractController
@@ -52,6 +53,9 @@ class JouerController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $personnage = $personnageRepository->find($idPersonnage);
+        if ($personnage->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException("You do not have access to this character");
+        }
         $aventures = $aventureRepository->findAll();
         return $this->render('jouer/aventures.html.twig', ['personnage' => $personnage , 'aventures' => $aventures]);
     }
@@ -61,6 +65,9 @@ class JouerController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $personnage = $personnageRepository->find($idPersonnage);
+        if ($personnage->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException("You do not have access to this character");
+        }
         $aventure = $aventureRepository->find($idAventure);
         $partie = $partieRepository->findOneBy(array('aventurier'=>$personnage,'aventure'=>$aventure));
         $isNewPartie = !isset($partie);
@@ -83,6 +90,9 @@ class JouerController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $partie = $partieRepository->find($idPartie);
+        if ($partie->getAventurier()->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('You do not have access to this partie!');
+        }
         $etape = $etapeRepository->find($idEtape);   
         $partie->setEtape($etape); 
         $entityManager->persist($partie);
